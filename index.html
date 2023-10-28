@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>letter drawing? whatever...</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        const container = document.getElementById('container');
+        let isDrawing = false;
+
+        document.addEventListener('mousedown', () => {
+            isDrawing = true;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        document.addEventListener('mousemove', addLetter);
+
+        function addLetter(e) {
+            if (isDrawing) {
+                const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // Random letter A-Z
+                const letterElement = document.createElement('span');
+                letterElement.textContent = randomLetter;
+                letterElement.style.position = 'absolute';
+                letterElement.style.left = e.clientX + 'px';
+                letterElement.style.top = e.clientY + 'px';
+                letterElement.style.color = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`; // Random color
+                container.appendChild(letterElement);
+            }
+        }
+    </script>
+</body>
+</html>
